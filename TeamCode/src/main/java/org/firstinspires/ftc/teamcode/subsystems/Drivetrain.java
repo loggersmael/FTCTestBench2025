@@ -16,9 +16,12 @@ import com.seattlesolvers.solverslib.command.Command;
 import com.seattlesolvers.solverslib.command.InstantCommand;
 import com.seattlesolvers.solverslib.command.SubsystemBase;
 
+import com.seattlesolvers.solverslib.geometry.Pose2d;
 import com.seattlesolvers.solverslib.solversHardware.SolversMotor;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 import org.firstinspires.ftc.teamcode.utilities.constants.DrivetrainConstants;
 import org.firstinspires.ftc.teamcode.utilities.constants.GlobalConstants;
 import org.firstinspires.ftc.teamcode.utilities.constants.GlobalConstants.OpModeType;
@@ -33,10 +36,12 @@ public class Drivetrain extends SubsystemBase {
     private SolversMotor rightRear;
 
     private IMU imu;
-    private Follower follower;
+    public Follower follower;
     private PoseUpdater poseUpdater;
 
-    public Drivetrain(HardwareMap aHardwareMap) {
+    private Telemetry telemetry;
+
+    public Drivetrain(HardwareMap aHardwareMap, Telemetry telemetry) {
         leftFront = new SolversMotor(aHardwareMap.get(DcMotor.class, DrivetrainConstants.fLMotorID), 0.01);
         rightFront = new SolversMotor(aHardwareMap.get(DcMotor.class, DrivetrainConstants.fRMotorID), 0.01);
         leftRear = new SolversMotor(aHardwareMap.get(DcMotor.class, DrivetrainConstants.bLMotorID), 0.01);
@@ -52,8 +57,10 @@ public class Drivetrain extends SubsystemBase {
         leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
-        leftRear.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftFront.setDirection(DcMotorSimple.Direction.FORWARD);
+        rightFront.setDirection(DcMotorSimple.Direction.FORWARD);
+        leftRear.setDirection(DcMotorSimple.Direction.FORWARD);
+        rightRear.setDirection(DcMotorSimple.Direction.REVERSE);
 
         initializeImu(aHardwareMap);
 
@@ -62,18 +69,23 @@ public class Drivetrain extends SubsystemBase {
         poseUpdater = new PoseUpdater(aHardwareMap);
 
         initializeImu(aHardwareMap);
+
+        this.telemetry = telemetry;
     }
 
     @Override
     public void periodic() {
-        if(GlobalConstants.currentOpMode != OpModeType.AUTO) {
-            follower.update();
-            follower.drawOnDashBoard();
-        }
+        telemetry.addData("Drivetrain Pose X", follower.getPose().getX());
+        telemetry.addData("Drivetrain Pose Y", follower.getPose().getY());
+        telemetry.addData("Drivetrain Heading", follower.getPose().getHeading());
     }
 
-    public Command setMovementVectors(double strafe, double forward, double rotation, BooleanSupplier feildCentric) {
-        return new InstantCommand(() -> follower.setTeleOpMovementVectors(forward, strafe, rotation, !feildCentric.getAsBoolean()));
+    public void setMovementVectors(double strafe, double forward, double rotation, BooleanSupplier feildCentric) {
+        follower.setTeleOpMovementVectors(forward, -strafe, -rotation, !feildCentric.getAsBoolean());
+    }
+
+    public void setMovementVectors(double strafe, double forward, double rotation) {
+        follower.setTeleOpMovementVectors(forward, -strafe, -rotation);
     }
 
     public void setPose(Pose pose) {

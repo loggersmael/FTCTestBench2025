@@ -6,19 +6,21 @@ import com.pedropathing.util.CustomFilteredPIDFCoefficients;
 import com.pedropathing.util.CustomPIDFCoefficients;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
+import org.firstinspires.ftc.teamcode.utilities.constants.DrivetrainConstants;
+
 public class FConstants {
     static {
         FollowerConstants.localizers = Localizers.PINPOINT;
 
-        FollowerConstants.leftFrontMotorName = "leftFront";
-        FollowerConstants.leftRearMotorName = "leftRear";
-        FollowerConstants.rightFrontMotorName = "rightFront";
-        FollowerConstants.rightRearMotorName = "rightRear";
+        FollowerConstants.leftFrontMotorName = DrivetrainConstants.fLMotorID;
+        FollowerConstants.leftRearMotorName = DrivetrainConstants.bLMotorID;
+        FollowerConstants.rightFrontMotorName = DrivetrainConstants.fRMotorID;
+        FollowerConstants.rightRearMotorName = DrivetrainConstants.bRMotorID;
 
-        FollowerConstants.leftFrontMotorDirection = DcMotorSimple.Direction.REVERSE;
-        FollowerConstants.leftRearMotorDirection = DcMotorSimple.Direction.REVERSE;
+        FollowerConstants.leftFrontMotorDirection = DcMotorSimple.Direction.FORWARD;
+        FollowerConstants.leftRearMotorDirection = DcMotorSimple.Direction.FORWARD;
         FollowerConstants.rightFrontMotorDirection = DcMotorSimple.Direction.FORWARD;
-        FollowerConstants.rightRearMotorDirection = DcMotorSimple.Direction.FORWARD;
+        FollowerConstants.rightRearMotorDirection = DcMotorSimple.Direction.REVERSE;
 
         FollowerConstants.mass = 13;
 

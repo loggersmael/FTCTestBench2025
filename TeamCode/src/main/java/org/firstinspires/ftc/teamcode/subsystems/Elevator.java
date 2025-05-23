@@ -61,10 +61,10 @@ public class Elevator extends SubsystemBase {
         leftPivotingServo.setDirection(Servo.Direction.REVERSE);
 
         if (GlobalConstants.currentOpMode.equals(GlobalConstants.OpModeType.AUTO)) {
-            setPivot(ManipulatorState.SPECIMAN_READY);
+            //setPivot(ManipulatorState.SPECIMAN_READY);
             setClawOpen(false);
         } else if (GlobalConstants.currentOpMode.equals(GlobalConstants.OpModeType.TELEOP)) {
-            setPivot(ManipulatorState.TRANSFER);
+            //setPivot(ManipulatorState.TRANSFER);
             setClawOpen(true);
         }
     }
@@ -77,6 +77,8 @@ public class Elevator extends SubsystemBase {
         this.target = Range.clip(target, 0, 10000.0);
         elevatorPIDController.setSetPoint(target);
     }
+
+    /*
 
     public void autoUpdateSlides() {
         double power = elevatorPIDController.calculate(getLiftScaledPosition(), target);
@@ -98,6 +100,40 @@ public class Elevator extends SubsystemBase {
         }
     }
 
+    public void setPivot(ManipulatorState manipulatorState) {
+        switch (manipulatorState) {
+            case TRANSFER:
+                leftPivotingServo.setPosition(DEPOSIT_PIVOT_SCORING_POS);
+                rightPivotingServo.setPosition(DEPOSIT_PIVOT_SCORING_POS);
+                wristServo.setPosition(WRIST_SCORING);
+                break;
+            case SPECIMAN_READY:
+                leftPivotingServo.setPosition(DEPOSIT_PIVOT_SPECIMEN_FRONT_SCORING_POS);
+                rightPivotingServo.setPosition(DEPOSIT_PIVOT_SPECIMEN_FRONT_SCORING_POS);
+                wristServo.setPosition(WRIST_FRONT_SPECIMEN_SCORING);
+                break;
+            case SPECIMAN_SCORE:
+                leftPivotingServo.setPosition(DEPOSIT_PIVOT_SPECIMEN_BACK_SCORING_POS);
+                rightPivotingServo.setPosition(DEPOSIT_PIVOT_SPECIMEN_BACK_SCORING_POS);
+                wristServo.setPosition(WRIST_BACK_SPECIMEN_SCORING);
+                break;
+            case SAMPLE:
+                leftPivotingServo.setPosition(DEPOSIT_PIVOT_TRANSFER_POS);
+                rightPivotingServo.setPosition(DEPOSIT_PIVOT_TRANSFER_POS);
+                wristServo.setPosition(WRIST_TRANSFER);
+                break;
+            case WALL:
+                leftPivotingServo.setPosition(DEPOSIT_PIVOT_READY_TRANSFER_POS);
+                rightPivotingServo.setPosition(DEPOSIT_PIVOT_READY_TRANSFER_POS);
+                wristServo.setPosition(WRIST_READY_TRANSFER);
+                break;
+        }
+
+        Elevator.manipulatorState = manipulatorState;
+    }
+
+    */
+
     public void setClawOpen(boolean open) {
         if (open) {
             clawServo.setPosition(0.0);
@@ -110,6 +146,6 @@ public class Elevator extends SubsystemBase {
 
     @Override
     public void periodic() {
-        autoUpdateSlides();
+        //autoUpdateSlides();
     }
 }
