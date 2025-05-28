@@ -1,5 +1,13 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
+import static org.firstinspires.ftc.teamcode.utilities.constants.ElevatorConstants.bucketAttachmentHeight;
+import static org.firstinspires.ftc.teamcode.utilities.constants.ElevatorConstants.elevatorClearenceHeight;
+import static org.firstinspires.ftc.teamcode.utilities.constants.ElevatorConstants.maximumExtension;
+import static org.firstinspires.ftc.teamcode.utilities.constants.ElevatorConstants.minimumExtension;
+
+import com.bylazar.ftcontrol.panels.Panels;
+import com.bylazar.ftcontrol.panels.configurables.annotations.Configurable;
+import com.bylazar.ftcontrol.panels.integration.TelemetryManager;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -12,6 +20,7 @@ import com.seattlesolvers.solverslib.solversHardware.SolversMotor;
 import com.seattlesolvers.solverslib.solversHardware.SolversServo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.utilities.constants.ElevatorConstants.*;
 import org.firstinspires.ftc.teamcode.utilities.constants.GlobalConstants;
 
 public class Elevator extends SubsystemBase {
@@ -23,43 +32,57 @@ public class Elevator extends SubsystemBase {
         SAMPLE_SCORE
     }
 
-    private SolversMotor elevatorMotor;
+    private Motor elevatorMotor;
+    private Motor.Encoder elevatorEncoder;
     private TouchSensor homingSwitch;
 
     public double target;
 
-    private static final PIDFController elevatorPIDController = new PIDFController(0.007,0, 0.00017, 0.00023);
+    private static PIDFController elevatorPIDController = new PIDFController(0.007,0, 0, 0);
     public boolean slidesReached;
     public boolean slidesRetracted;
     public boolean clawOpen;
 
     private Telemetry telemetry;
+    private TelemetryManager panelTelemetry;
 
     public Elevator(HardwareMap aHardwareMap, Telemetry telemetry) {
-        elevatorMotor = new SolversMotor(aHardwareMap.get(DcMotor.class, "elevatorMotor"), 0.01);
-        elevatorMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        elevatorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        elevatorMotor = new Motor(aHardwareMap, "elevatorMotor", Motor.GoBILDA.RPM_312);
+        elevatorMotor.stopAndResetEncoder();
+        elevatorEncoder = elevatorMotor.encoder;
 
         homingSwitch = aHardwareMap.get(TouchSensor.class, "elevatorLimitSwitch");
+        panelTelemetry = Panels.getTelemetry();
+        panelTelemetry.update();
+
         this.telemetry = telemetry;
     }
 
     public int getLiftScaledPosition() {
-        return elevatorMotor.getPosition();
+        return elevatorEncoder.getPosition();
     }
 
     public void setSlideTarget(double target) {
-        this.target = Range.clip(target, 0, 10000.0);
+        this.target = Range.clip(target, minimumExtension, maximumExtension);
         elevatorPIDController.setSetPoint(target);
     }
 
     public void autoUpdateSlides() {
+        /*
+
+        if (this.target == BACK_HIGH_SPECIMEN_ATTACH_HEIGHT && !slidesReached) {
+            slidePIDF.setP(0.01);
+        } else {
+            slidePIDF.setP(0.007);
+        }
+
+         */
+
         double power = elevatorPIDController.calculate(getLiftScaledPosition(), target);
         slidesReached = elevatorPIDController.atSetPoint()
                 || (target == 0 && getLiftScaledPosition() < 15)
-                || (getLiftScaledPosition() >= target && target == 3700)
-                || (target == 300 + 50 && getLiftScaledPosition() > 300 && getLiftScaledPosition() < 300 + 65);
-
+                || (getLiftScaledPosition() >= target && target == bucketAttachmentHeight)
+                || (target == elevatorClearenceHeight + 50 && getLiftScaledPosition() > elevatorClearenceHeight && getLiftScaledPosition() < elevatorClearenceHeight + 65);
 
         slidesRetracted = (target <= 0) && slidesReached;
 
@@ -69,16 +92,18 @@ public class Elevator extends SubsystemBase {
         }
 
         if (slidesRetracted) {
-            elevatorMotor.setPower(0);
+            elevatorMotor.set(0);
         } else {
-            elevatorMotor.setPower(power);
+            elevatorMotor.set(power);
         }
     }
 
     @Override
     public void periodic() {
-        //autoUpdateSlides();
+        autoUpdateSlides();
         telemetry.addData("Elevator Position", getLiftScaledPosition());
-        elevatorMotor.setPower(0.5);
+        panelTelemetry.graph("Target Position", target);
+        panelTelemetry.graph("Current Position", getLiftScaledPosition());
+        panelTelemetry.update(telemetry);
     }
 }
