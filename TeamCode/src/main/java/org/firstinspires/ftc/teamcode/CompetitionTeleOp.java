@@ -8,20 +8,28 @@ import com.seattlesolvers.solverslib.command.RunCommand;
 import com.seattlesolvers.solverslib.gamepad.GamepadEx;
 
 import org.firstinspires.ftc.teamcode.commands.DrivetrainController;
+import org.firstinspires.ftc.teamcode.subsystems.Arm;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
+import org.firstinspires.ftc.teamcode.subsystems.Elevator;
 import org.firstinspires.ftc.teamcode.utilities.constants.GlobalConstants;
 
 @TeleOp(name="CompetitionTeleOp")
 public class CompetitionTeleOp extends CommandOpMode {
     private Drivetrain drivetrain;
+    private Elevator elevator;
+    private Arm arm;
+
     private GamepadEx driverController;
 
     @Override
     public void initialize() {
         drivetrain = new Drivetrain(hardwareMap, telemetry);
+        elevator = new Elevator(hardwareMap, telemetry);
+        arm = new Arm(hardwareMap, telemetry);
+
         driverController = new GamepadEx(gamepad1);
 
-        register(drivetrain);
+        register(drivetrain, elevator, arm);
         schedule(new RunCommand(telemetry::update));
 
         drivetrain.setDefaultCommand(new DrivetrainController(
