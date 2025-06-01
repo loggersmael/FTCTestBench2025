@@ -1,0 +1,1 @@
+import{t as s,a as e}from"./I_BkWTEX.js";import{c as i,a4 as p,r as n}from"./CFBpeVWW.js";import{s as m}from"./geMghRiS.js";var c=s('<div class="main svelte-1cg5cmp"><!></div>');function f(o,r){var a=c(),t=i(a);m(t,()=>r.children??p),n(a),e(o,a)}export{f as C};

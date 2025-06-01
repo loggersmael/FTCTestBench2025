@@ -1,0 +1,1 @@
+import{aa as c,l as t,an as l,a4 as o}from"./6i5jw-Z5.js";function a(n){throw new Error("https://svelte.dev/e/lifecycle_outside_component")}function u(n){t===null&&a(),l&&t.l!==null?i(t).m.push(n):c(()=>{const e=o(n);if(typeof e=="function")return e})}function f(n){t===null&&a(),u(()=>()=>o(n))}function i(n){var e=n.l;return e.u??(e.u={a:[],b:[],m:[]})}export{f as a,u as o};

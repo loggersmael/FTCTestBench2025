@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
+import static org.firstinspires.ftc.teamcode.utilities.constants.DrivetrainConstants.startPose;
+
 import com.pedropathing.follower.Follower;
 import com.pedropathing.follower.FollowerConstants;
 import com.pedropathing.localization.Localizer;
@@ -35,8 +37,10 @@ public class Drivetrain extends SubsystemBase {
     private SolversMotor leftRear;
     private SolversMotor rightRear;
 
-    private IMU imu;
+
     public Follower follower;
+    private Pose reset;
+
     private PoseUpdater poseUpdater;
 
     private Telemetry telemetry;
@@ -62,19 +66,22 @@ public class Drivetrain extends SubsystemBase {
         leftRear.setDirection(DcMotorSimple.Direction.FORWARD);
         rightRear.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        initializeImu(aHardwareMap);
+
 
         follower = new Follower(aHardwareMap);
-        FollowerConstants.useBrakeModeInTeleOp = false;
+        FollowerConstants.useBrakeModeInTeleOp = true;
         poseUpdater = new PoseUpdater(aHardwareMap);
 
-        initializeImu(aHardwareMap);
+        reset= new Pose(0,0,0);
 
         this.telemetry = telemetry;
     }
 
     @Override
     public void periodic() {
+        follower.update();
+        reset.setX(follower.getPose().getX());
+        reset.setY(follower.getPose().getY());
         telemetry.addData("Drivetrain Pose X", follower.getPose().getX());
         telemetry.addData("Drivetrain Pose Y", follower.getPose().getY());
         telemetry.addData("Drivetrain Heading", follower.getPose().getHeading());
@@ -85,7 +92,7 @@ public class Drivetrain extends SubsystemBase {
     }
 
     public void setMovementVectors(double strafe, double forward, double rotation) {
-        follower.setTeleOpMovementVectors(forward, -strafe, -rotation);
+        follower.setTeleOpMovementVectors(forward, -strafe, -rotation, false);
     }
 
     public void setPose(Pose pose) {
@@ -94,32 +101,16 @@ public class Drivetrain extends SubsystemBase {
 
     public void enableTeleop() {
         follower.startTeleopDrive();
-        follower.setStartingPose(new Pose(0,0,0));
+        follower.setStartingPose(startPose);
     }
 
-    public void initializeImu(HardwareMap hardwareMap) {
-        imu = hardwareMap.get(IMU.class, "imu");
-        IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
-                RevHubOrientationOnRobot.LogoFacingDirection.RIGHT,
-                RevHubOrientationOnRobot.UsbFacingDirection.UP)
-        );
-
-        imu.initialize(parameters);
+    public void resetHeading()
+    {
+        follower.setPose(reset);
     }
 
-    public double getYawDegrees() {
-        return imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
-    }
-
-    public double getPitchDegrees() {
-        return imu.getRobotYawPitchRollAngles().getPitch(AngleUnit.DEGREES);
-    }
-
-    public double getRollDegrees() {
-        return imu.getRobotYawPitchRollAngles().getRoll(AngleUnit.DEGREES);
-    }
-
-    public void resetYaw() {
-        imu.resetYaw();
+    public void hold()
+    {
+        follower.holdPoint(follower.getPose());
     }
 }
