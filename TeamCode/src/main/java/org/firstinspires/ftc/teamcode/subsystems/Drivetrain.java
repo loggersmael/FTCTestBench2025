@@ -87,8 +87,8 @@ public class Drivetrain extends SubsystemBase {
         telemetry.addData("Drivetrain Heading", follower.getPose().getHeading());
     }
 
-    public void setMovementVectors(double strafe, double forward, double rotation, BooleanSupplier feildCentric) {
-        follower.setTeleOpMovementVectors(forward, -strafe, -rotation, !feildCentric.getAsBoolean());
+    public void setMovementVectors(double strafe, double forward, double rotation, boolean feildCentric) {
+        follower.setTeleOpMovementVectors(forward, -strafe, -rotation, !feildCentric);
     }
 
     public void setMovementVectors(double strafe, double forward, double rotation) {

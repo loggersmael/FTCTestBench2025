@@ -1,0 +1,16 @@
+package org.firstinspires.ftc.teamcode.utilities.constants;
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.config.Config;
+import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
+@Config
+public class VisionConstants
+{
+    public static double lP=0.0014;
+    public static double lI=0;
+    public static double lD=0.00012;
+    public static double lF=0;
+    public static double fP=0.004;
+    public static double fI=0;
+    public static double fD=0.000003;
+    public static double fF=0;
+}
