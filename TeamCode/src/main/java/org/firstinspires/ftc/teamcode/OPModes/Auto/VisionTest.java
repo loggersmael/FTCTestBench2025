@@ -38,7 +38,7 @@ public class VisionTest extends OpMode
     }
     public void loop()
     {
-        cams.followBlock(cams.blueBlocks);
+        cams.followBlock(cams.redBlocks);
         aPeriodic();
     }
 }

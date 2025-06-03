@@ -9,8 +9,8 @@ public class VisionConstants
     public static double lI=0;
     public static double lD=0.00012;
     public static double lF=0;
-    public static double fP=0.004;
+    public static double fP=0.003;
     public static double fI=0;
-    public static double fD=0.000003;
+    public static double fD=0.0005;
     public static double fF=0;
 }

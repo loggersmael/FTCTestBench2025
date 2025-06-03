@@ -110,14 +110,15 @@ public class Vision extends SubsystemBase
             }
             else
             {
-                //drivetrain.setMovementVectors(0,0,0,false);
-                drivetrain.hold();
+                drivetrain.setMovementVectors(0,0,0,false);
+                //drivetrain.hold();
+
             }
         }
         else
         {
-            //drivetrain.setMovementVectors(0,0,0,false);
-            drivetrain.hold();
+            drivetrain.setMovementVectors(0,0,0,false);
+            //drivetrain.hold();
         }
     }
 
