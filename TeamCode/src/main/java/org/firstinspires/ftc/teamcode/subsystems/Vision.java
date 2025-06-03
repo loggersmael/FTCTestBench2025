@@ -39,7 +39,7 @@ public class Vision extends SubsystemBase
     private double currentX;
     private double currentY;
     private double targetX=160;
-    private double targetY=200;
+    private double targetY=180;
     private double strafe;
     private double forwards;
     private double length;
