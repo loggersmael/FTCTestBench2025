@@ -9,6 +9,7 @@ import com.qualcomm.hardware.dfrobot.HuskyLens;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.seattlesolvers.solverslib.command.button.GamepadButton;
 import com.seattlesolvers.solverslib.gamepad.GamepadEx;
 import com.seattlesolvers.solverslib.gamepad.GamepadKeys;
@@ -25,7 +26,7 @@ public class TestOP extends OpMode
    private GamepadEx driver2;
 
    public TelemetryManager panels;
-
+   private Servo flap;
 
 
    private void aPeriodic()
@@ -40,6 +41,7 @@ public class TestOP extends OpMode
         drivetrain= new Drivetrain(hardwareMap, telemetry);
         driver1= new GamepadEx(gamepad1);
         driver2= new GamepadEx(gamepad2);
+        flap= hardwareMap.get(Servo.class,"flap");
         panels= Panels.getTelemetry();
         viper.liftToPosition(Elevator.liftState.RETRACTED);
     }
@@ -68,9 +70,18 @@ public class TestOP extends OpMode
           viper.liftToPosition(Elevator.liftState.MID);
        }
 
-       if(driver2.getButton(GamepadKeys.Button.TOUCHPAD))
+       if(driver1.getButton(GamepadKeys.Button.TOUCHPAD))
        {
            drivetrain.resetHeading();
+       }
+
+       if(driver1.getButton(GamepadKeys.Button.A))
+       {
+           flap.setPosition(0);
+       }
+       if(driver1.getButton(GamepadKeys.Button.B))
+       {
+           flap.setPosition(1);
        }
     /*
        if(driver1.getButton(GamepadKeys.Button.Y))

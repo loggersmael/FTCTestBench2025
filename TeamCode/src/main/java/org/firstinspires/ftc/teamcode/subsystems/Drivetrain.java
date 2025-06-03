@@ -8,11 +8,11 @@ import com.pedropathing.localization.Localizer;
 import com.pedropathing.localization.Pose;
 import com.pedropathing.localization.PoseUpdater;
 
-import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
+
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.IMU;
+
 
 import com.seattlesolvers.solverslib.command.Command;
 import com.seattlesolvers.solverslib.command.InstantCommand;
@@ -112,5 +112,20 @@ public class Drivetrain extends SubsystemBase {
     public void hold()
     {
         follower.holdPoint(follower.getPose());
+    }
+
+    public double getHeading()
+    {
+        return follower.getPose().getHeading();
+    }
+
+    public double getX()
+    {
+        return follower.getPose().getX();
+    }
+
+    public double getY()
+    {
+        return follower.getPose().getY();
     }
 }

@@ -4,6 +4,8 @@ import static org.firstinspires.ftc.teamcode.utilities.constants.VisionConstants
 import static org.firstinspires.ftc.teamcode.utilities.constants.VisionConstants.fF;
 import static org.firstinspires.ftc.teamcode.utilities.constants.VisionConstants.fI;
 import static org.firstinspires.ftc.teamcode.utilities.constants.VisionConstants.fP;
+import static org.firstinspires.ftc.teamcode.utilities.constants.VisionConstants.hD;
+import static org.firstinspires.ftc.teamcode.utilities.constants.VisionConstants.hP;
 import static org.firstinspires.ftc.teamcode.utilities.constants.VisionConstants.lD;
 import static org.firstinspires.ftc.teamcode.utilities.constants.VisionConstants.lF;
 import static org.firstinspires.ftc.teamcode.utilities.constants.VisionConstants.lI;
@@ -15,6 +17,7 @@ import com.seattlesolvers.solverslib.command.SubsystemBase;
 import com.seattlesolvers.solverslib.controller.PIDFController;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.utilities.HeadingPID;
 
 import java.util.List;
 
@@ -23,6 +26,7 @@ public class Vision extends SubsystemBase
     private HuskyLens camera;
     private Telemetry telemetry;
     private Drivetrain drivetrain;
+    private Claw claw;
     public HuskyLens.Block[] redBlocks;
     public HuskyLens.Block[] yellowBlocks;
     public HuskyLens.Block[] blueBlocks;
@@ -35,15 +39,24 @@ public class Vision extends SubsystemBase
     private double currentX;
     private double currentY;
     private double targetX=160;
-    private double targetY=180;
+    private double targetY=200;
     private double strafe;
     private double forwards;
+    private double length;
+    private double width;
+    private double startHeading;
+    private double currentHeading;
+    private double rotation;
+    private HeadingPID headingPD= new HeadingPID(hP,hD);
+    private double tolerance=10;
 
-    public Vision(HardwareMap aHardwaremap,Drivetrain dt, Telemetry telemetry)
+    public Vision(HardwareMap aHardwaremap,Drivetrain dt, Claw cl, Telemetry telemetry)
     {
         camera= aHardwaremap.get(HuskyLens.class, "huskylens");
         this.telemetry=telemetry;
         drivetrain=dt;
+        claw=cl;
+        startHeading=dt.getHeading();
         camera.selectAlgorithm(HuskyLens.Algorithm.COLOR_RECOGNITION);
         redBlocks=camera.blocks(1);
         yellowBlocks=camera.blocks(2);
@@ -102,11 +115,13 @@ public class Vision extends SubsystemBase
         {
             currentX= target[0].x;
             currentY= target[0].y;
+            currentHeading= drivetrain.getHeading();
             if(Math.abs(currentX-targetX)>10 || Math.abs(currentY-targetY)>10)
             {
                 strafe = lateral.calculate(currentX, targetX);
                 forwards = forward.calculate(currentY, targetY);
-                drivetrain.setMovementVectors(-strafe, forwards, 0, false);
+                rotation = headingPD.calculate(currentHeading,startHeading);
+                drivetrain.setMovementVectors(-strafe, forwards, -rotation, false);
             }
             else
             {
@@ -119,6 +134,27 @@ public class Vision extends SubsystemBase
         {
             drivetrain.setMovementVectors(0,0,0,false);
             //drivetrain.hold();
+        }
+    }
+
+    public void autoYaw(HuskyLens.Block[] target)
+    {
+        if (target.length>0)
+        {
+            length=target[0].height;
+            width=target[0].width;
+            if(length-width>tolerance)
+            {
+                claw.setYaw(0);
+            }
+            else if(length-width<-tolerance)
+            {
+                claw.setYaw(90.0/300);
+            }
+            else
+            {
+                claw.setYaw(45.0/300);
+            }
         }
     }
 
