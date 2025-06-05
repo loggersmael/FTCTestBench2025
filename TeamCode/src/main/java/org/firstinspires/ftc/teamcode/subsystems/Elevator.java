@@ -12,6 +12,7 @@ import com.seattlesolvers.solverslib.hardware.motors.MotorEx;
 import com.seattlesolvers.solverslib.solversHardware.SolversMotor;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
 import org.firstinspires.ftc.teamcode.utilities.constants.ElevatorConstants;
 
 public class Elevator extends SubsystemBase
@@ -34,19 +35,20 @@ public class Elevator extends SubsystemBase
             return position;
         }
     }
-    private Motor liftMotor;
-    private Motor.Encoder liftEncoder;
+    private MotorEx liftMotor;
+    private MotorEx.Encoder liftEncoder;
     private int targetPosition;
+    public boolean resetLift=false;
     private liftState viperState= liftState.RETRACTED;
     private static PIDFController liftController= new PIDFController(ElevatorConstants.P,ElevatorConstants.I,ElevatorConstants.D,ElevatorConstants.F);
 
     private Telemetry telemetry;
     public Elevator(HardwareMap aHardwaremap, Telemetry telemetry)
     {
-        liftMotor= new Motor(aHardwaremap, "elevatorMotor", Motor.GoBILDA.RPM_312);
+        liftMotor= new MotorEx(aHardwaremap, "elevatorMotor", MotorEx.GoBILDA.RPM_312);
         liftMotor.stopAndResetEncoder();
-        liftMotor.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
-        liftMotor.setRunMode(Motor.RunMode.RawPower);
+        liftMotor.setZeroPowerBehavior(MotorEx.ZeroPowerBehavior.BRAKE);
+        liftMotor.setRunMode(MotorEx.RunMode.RawPower);
         liftEncoder= liftMotor.encoder;
         this.telemetry=telemetry;
     }
@@ -68,9 +70,25 @@ public class Elevator extends SubsystemBase
         return liftEncoder.getPosition();
     }
 
+    public void resetLift()
+    {
+        resetLift=true;
+    }
     private void update()
     {
-        liftMotor.motor.setPower(liftController.calculate(getEncoderPosition(),targetPosition));
+        if(resetLift)
+        {
+            liftMotor.motorEx.setPower(-0.5);
+            if(liftMotor.motorEx.getCurrent(CurrentUnit.AMPS)>4.5)
+            {
+                liftMotor.stopAndResetEncoder();
+                liftToPosition(liftState.RETRACTED);
+            }
+        }
+        else
+        {
+            liftMotor.motorEx.setPower(liftController.calculate(getEncoderPosition(), targetPosition));
+        }
     }
 
     @Override
@@ -79,5 +97,6 @@ public class Elevator extends SubsystemBase
         update();
         telemetry.addData("Lift position: ", getEncoderPosition());
         telemetry.addData("Target: ", getLiftState().getPosition());
+        telemetry.addData("Lift Current: ", liftMotor.motorEx.getCurrent(CurrentUnit.AMPS));
     }
 }

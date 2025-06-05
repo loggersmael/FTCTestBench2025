@@ -15,6 +15,7 @@ import com.seattlesolvers.solverslib.gamepad.GamepadEx;
 import com.seattlesolvers.solverslib.gamepad.GamepadKeys;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.subsystems.Arm;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.Elevator;
 @TeleOp(name="TestOP")
@@ -22,6 +23,7 @@ public class TestOP extends OpMode
 {
     private Elevator viper;
     private Drivetrain drivetrain;
+    private Arm arm;
    private GamepadEx driver1;
    private GamepadEx driver2;
 
@@ -33,12 +35,14 @@ public class TestOP extends OpMode
    {
        viper.periodic();
        drivetrain.periodic();
+       arm.periodic();
    }
 
    public void init()
     {
         viper= new Elevator(hardwareMap, telemetry);
         drivetrain= new Drivetrain(hardwareMap, telemetry);
+        arm= new Arm(hardwareMap,telemetry);
         driver1= new GamepadEx(gamepad1);
         driver2= new GamepadEx(gamepad2);
         flap= hardwareMap.get(Servo.class,"flap");
@@ -68,6 +72,15 @@ public class TestOP extends OpMode
        if(driver2.getButton(GamepadKeys.Button.X))
        {
           viper.liftToPosition(Elevator.liftState.MID);
+       }
+
+       if(driver2.getButton(GamepadKeys.Button.LEFT_BUMPER))
+       {
+           viper.resetLift();
+       }
+       else
+       {
+           viper.resetLift=false;
        }
 
        if(driver1.getButton(GamepadKeys.Button.TOUCHPAD))
