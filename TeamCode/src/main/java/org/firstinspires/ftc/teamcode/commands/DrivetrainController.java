@@ -1,22 +1,20 @@
 package org.firstinspires.ftc.teamcode.commands;
 
+import com.qualcomm.robotcore.hardware.Gamepad;
 import com.seattlesolvers.solverslib.command.CommandBase;
+import com.seattlesolvers.solverslib.gamepad.GamepadEx;
 
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 
 public class DrivetrainController extends CommandBase
 {
     private Drivetrain drivetrain;
-    private double forward;
-    private double strafe;
-    private double rotation;
 
-    public DrivetrainController(Drivetrain drivetrain, double forward, double strafe, double rotation) {
+    private GamepadEx driver1;
+
+    public DrivetrainController(Drivetrain drivetrain, GamepadEx d1) {
         this.drivetrain = drivetrain;
-        this.forward = forward;
-        this.strafe = strafe;
-        this.rotation = rotation;
-
+        driver1= d1;
         addRequirements(drivetrain);
     }
 
@@ -27,6 +25,7 @@ public class DrivetrainController extends CommandBase
 
     @Override
     public void execute() {
-        drivetrain.setMovementVectors(strafe, forward, rotation);
+        drivetrain.setMovementVectors(driver1.getLeftX(), driver1.getLeftY(), driver1.getRightX());
+        drivetrain.follower.update();
     }
 }

@@ -40,6 +40,7 @@ public class Bot extends Robot
         register(drivetrain,lift,headLights,camera,claw,arm);
         if(type== GlobalConstants.OpModeType.TELEOP)
         {
+            drivetrain.setDefaultCommand(new DrivetrainController(drivetrain,driver1));
             initTeleop();
         }
         else if(type== GlobalConstants.OpModeType.AUTO)
@@ -50,12 +51,12 @@ public class Bot extends Robot
 
     public void dualDrive()
     {
-        drivetrain.setDefaultCommand(new DrivetrainController(drivetrain,driver1.getLeftY(),driver1.getLeftX(),driver1.getRightX()));
         buttons.retractLift.whenPressed(new InstantCommand(()->lift.liftToPosition(Elevator.liftState.RETRACTED),lift));
         buttons.maxLift.whenPressed(new InstantCommand(()->lift.liftToPosition(Elevator.liftState.MAX),lift));
         buttons.midLift.whenPressed(new InstantCommand(()->lift.liftToPosition(Elevator.liftState.MID),lift));
         buttons.resetLift.whenPressed(new InstantCommand(()->lift.resetLift(),lift));
         buttons.resetLift.whenReleased(new InstantCommand(()->lift.unResetLift(),lift));
+        buttons.resetHeading.whenPressed(new InstantCommand(()->drivetrain.resetHeading(),drivetrain));
     }
     public void initTeleop()
     {
