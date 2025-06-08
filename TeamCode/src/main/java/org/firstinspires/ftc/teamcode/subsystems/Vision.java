@@ -158,6 +158,7 @@ public class Vision extends SubsystemBase
         }
     }
 
+    @Override
     public void periodic()
     {
         redBlocks=camera.blocks(1);

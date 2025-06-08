@@ -74,11 +74,15 @@ public class Elevator extends SubsystemBase
     {
         resetLift=true;
     }
+    public void unResetLift()
+    {
+        resetLift=false;
+    }
     private void update()
     {
         if(resetLift)
         {
-            liftMotor.motorEx.setPower(-0.5);
+            liftMotor.motorEx.setPower(-0.75);
             if(liftMotor.motorEx.getCurrent(CurrentUnit.AMPS)>4.5)
             {
                 liftMotor.stopAndResetEncoder();

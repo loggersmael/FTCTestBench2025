@@ -106,7 +106,7 @@ public class Drivetrain extends SubsystemBase {
 
     public void resetHeading()
     {
-        follower.setPose(reset);
+        follower.setCurrentPoseWithOffset(new Pose(follower.getXOffset(), follower.getYOffset(), Math.toRadians(0)));
     }
 
     public void hold()
