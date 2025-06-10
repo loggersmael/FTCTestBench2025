@@ -11,6 +11,7 @@ import static org.firstinspires.ftc.teamcode.utilities.constants.VisionConstants
 import static org.firstinspires.ftc.teamcode.utilities.constants.VisionConstants.lI;
 import static org.firstinspires.ftc.teamcode.utilities.constants.VisionConstants.lP;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.hardware.dfrobot.HuskyLens;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.seattlesolvers.solverslib.command.SubsystemBase;
@@ -20,7 +21,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.utilities.HeadingPID;
 
 import java.util.List;
-
+@Config
 public class Vision extends SubsystemBase
 {
     private HuskyLens camera;
@@ -47,6 +48,8 @@ public class Vision extends SubsystemBase
     private double startHeading;
     private double currentHeading;
     private double rotation;
+    private double targetYaw;
+    public static double targetScale=3;
     private HeadingPID headingPD= new HeadingPID(hP,hD);
     private double tolerance=10;
 
@@ -107,6 +110,7 @@ public class Vision extends SubsystemBase
         listRed();
         listYellow();
         listBlue();
+        telemetry.addData("target yaw", Math.toDegrees(targetYaw));
     }
 
     public void followBlock(HuskyLens.Block[] target)
@@ -155,6 +159,17 @@ public class Vision extends SubsystemBase
             {
                 claw.setYaw(45.0/300);
             }
+        }
+    }
+
+    public void exactYaw(HuskyLens.Block[] target)
+    {
+        if(target.length>0)
+        {
+            length=target[0].height;
+            width=target[0].width;
+            targetYaw=Math.atan2(length,width);
+            claw.setYaw(Math.toDegrees(targetYaw)/300.0*targetScale);
         }
     }
 

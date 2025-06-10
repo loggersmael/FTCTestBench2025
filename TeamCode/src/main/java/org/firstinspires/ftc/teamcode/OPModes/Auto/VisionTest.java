@@ -42,7 +42,7 @@ public class VisionTest extends OpMode
     public void loop()
     {
         cams.followBlock(cams.redBlocks);
-        cams.autoYaw(cams.redBlocks);
+        cams.exactYaw(cams.redBlocks);
         aPeriodic();
     }
 }
