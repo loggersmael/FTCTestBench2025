@@ -18,12 +18,15 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.subsystems.Arm;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.Elevator;
+import org.firstinspires.ftc.teamcode.subsystems.OpenCVVision;
+
 @TeleOp(name="TestOP")
 public class TestOP extends OpMode
 {
     private Elevator viper;
     private Drivetrain drivetrain;
     private Arm arm;
+    private OpenCVVision cams;
    private GamepadEx driver1;
    private GamepadEx driver2;
 
@@ -43,11 +46,13 @@ public class TestOP extends OpMode
         viper= new Elevator(hardwareMap, telemetry);
         drivetrain= new Drivetrain(hardwareMap, telemetry);
         arm= new Arm(hardwareMap,telemetry);
+        cams= new OpenCVVision(hardwareMap,telemetry);
         driver1= new GamepadEx(gamepad1);
         driver2= new GamepadEx(gamepad2);
         flap= hardwareMap.get(Servo.class,"flap");
         panels= Panels.getTelemetry();
         viper.liftToPosition(Elevator.liftState.RETRACTED);
+        cams.streamToHub();
     }
 
     public void start()

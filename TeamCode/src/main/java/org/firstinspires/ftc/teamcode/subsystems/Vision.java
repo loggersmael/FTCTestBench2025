@@ -49,7 +49,7 @@ public class Vision extends SubsystemBase
     private double currentHeading;
     private double rotation;
     private double targetYaw;
-    public static double targetScale=3;
+    public static double targetScale=30;
     private HeadingPID headingPD= new HeadingPID(hP,hD);
     private double tolerance=10;
 

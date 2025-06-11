@@ -57,4 +57,5 @@ dependencies {
     implementation "com.acmerobotics.dashboard:dashboard:0.4.16" // FTC Dashboard
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.7'
     implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.4.21'
+    implementation  'org.openftc:easyopencv:1.7.3'
 }

@@ -10,122 +10,129 @@
 10    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 10-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:7:3-79
 10-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:7:20-76
-11
-12    <application
-12-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:9:3-77:17
-13        android:allowBackup="true"
-13-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:10:5-31
-14        android:icon="@drawable/ic_launcher"
-14-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:12:5-41
-15        android:label="@string/app_name"
-15-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:13:5-37
-16        android:largeHeap="true"
-16-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:11:5-29
-17        android:theme="@style/AppThemeRedRC"
+11    <uses-permission android:name="android.permission.CAMERA" />
+11-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:8:3-62
+11-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:8:20-60
+12
+13    <uses-feature android:name="android.hardware.camera" />
+13-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:9:3-57
+13-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:9:17-55
+14
+15    <application
+15-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:11:3-79:17
+16        android:allowBackup="true"
+16-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:12:5-31
+17        android:icon="@drawable/ic_launcher"
 17-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:14:5-41
-18        android:usesCleartextTraffic="true" >
-18-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:15:5-40
-19
-20        <!-- Indicates to the ControlHubUpdater what the latest version of the Control Hub is that this app supports -->
-21        <meta-data
-21-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:18:5-20:29
-22            android:name="org.firstinspires.latestSupportedControlHubVersion"
-22-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:19:9-74
-23            android:value="1" />
-23-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:20:9-26
-24
-25        <!-- The main robot controller activity -->
-26        <activity
-26-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:23:5-34:16
-27            android:name="org.firstinspires.ftc.robotcontroller.internal.PermissionValidatorWrapper"
-27-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:23:15-103
-28            android:configChanges="orientation|screenSize"
-28-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:25:15-61
-29            android:label="@string/app_name"
-29-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:26:15-47
-30            android:launchMode="singleTask"
-30-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:27:15-46
-31            android:screenOrientation="fullUser" >
-31-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:24:15-51
-32            <intent-filter>
-32-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:29:7-32:23
-33                <category android:name="android.intent.category.LAUNCHER" />
-33-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:30:9-69
-33-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:30:19-66
-34
-35                <action android:name="android.intent.action.MAIN" />
-35-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:31:9-61
-35-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:31:17-58
-36            </intent-filter>
-37        </activity>
-38        <activity
-38-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:36:5-55:16
-39            android:name="org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity"
-39-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:37:7-95
-40            android:configChanges="orientation|screenSize"
-40-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:39:7-53
-41            android:label="@string/app_name"
-41-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:40:7-39
-42            android:launchMode="singleTask"
-42-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:41:7-38
-43            android:screenOrientation="fullUser" >
-43-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:38:7-43
-44            <intent-filter>
-44-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:43:7-45:23
-45                <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
-45-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:44:9-82
-45-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:44:17-79
-46            </intent-filter>
-47
-48            <meta-data
-48-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:47:7-49:49
-49                android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED"
-49-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:48:9-71
-50                android:resource="@xml/device_filter" />
-50-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:49:9-46
-51
-52            <!-- org.firstinspires.main.entry indicates that this app is compatible with the Dragonboard Control Hub -->
-53            <meta-data
-53-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:52:7-54:34
-54                android:name="org.firstinspires.main.entry"
-54-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:53:11-54
-55                android:value="true" />
-55-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:54:11-31
-56        </activity>
-57
-58        <!-- The robot controller service in which most of the robot functionality is managed -->
-59        <service
-59-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:58:5-60:32
-60            android:name="com.qualcomm.ftccommon.FtcRobotControllerService"
-60-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:59:7-70
-61            android:enabled="true" />
-61-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:60:7-29
-62
-63        <!-- Assistant that autostarts the robot controller on android boot (if it's supposed to) -->
-64        <receiver
-64-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:64:5-75:16
-65            android:name="org.firstinspires.ftc.ftccommon.internal.RunOnBoot"
-65-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:67:7-72
-66            android:enabled="true"
-66-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:65:7-29
-67            android:exported="true"
-67-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:66:7-30
-68            android:permission="android.permission.RECEIVE_BOOT_COMPLETED" >
-68-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:68:7-69
-69            <intent-filter>
-69-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:70:7-74:23
-70                <category android:name="android.intent.category.DEFAULT" />
-70-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:71:9-68
-70-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:71:19-65
-71
-72                <action android:name="android.intent.action.BOOT_COMPLETED" />
-72-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:72:9-71
-72-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:72:17-68
-73                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
-73-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:73:9-74
-73-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:73:17-71
-74            </intent-filter>
-75        </receiver>
-76    </application>
-77
-78</manifest>
+18        android:label="@string/app_name"
+18-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:15:5-37
+19        android:largeHeap="true"
+19-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:13:5-29
+20        android:theme="@style/AppThemeRedRC"
+20-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:16:5-41
+21        android:usesCleartextTraffic="true" >
+21-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:17:5-40
+22
+23        <!-- Indicates to the ControlHubUpdater what the latest version of the Control Hub is that this app supports -->
+24        <meta-data
+24-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:20:5-22:29
+25            android:name="org.firstinspires.latestSupportedControlHubVersion"
+25-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:21:9-74
+26            android:value="1" />
+26-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:22:9-26
+27
+28        <!-- The main robot controller activity -->
+29        <activity
+29-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:25:5-36:16
+30            android:name="org.firstinspires.ftc.robotcontroller.internal.PermissionValidatorWrapper"
+30-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:25:15-103
+31            android:configChanges="orientation|screenSize"
+31-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:27:15-61
+32            android:label="@string/app_name"
+32-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:28:15-47
+33            android:launchMode="singleTask"
+33-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:29:15-46
+34            android:screenOrientation="fullUser" >
+34-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:26:15-51
+35            <intent-filter>
+35-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:31:7-34:23
+36                <category android:name="android.intent.category.LAUNCHER" />
+36-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:32:9-69
+36-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:32:19-66
+37
+38                <action android:name="android.intent.action.MAIN" />
+38-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:33:9-61
+38-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:33:17-58
+39            </intent-filter>
+40        </activity>
+41        <activity
+41-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:38:5-57:16
+42            android:name="org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity"
+42-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:39:7-95
+43            android:configChanges="orientation|screenSize"
+43-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:41:7-53
+44            android:label="@string/app_name"
+44-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:42:7-39
+45            android:launchMode="singleTask"
+45-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:43:7-38
+46            android:screenOrientation="fullUser" >
+46-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:40:7-43
+47            <intent-filter>
+47-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:45:7-47:23
+48                <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
+48-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:46:9-82
+48-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:46:17-79
+49            </intent-filter>
+50
+51            <meta-data
+51-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:49:7-51:49
+52                android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED"
+52-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:50:9-71
+53                android:resource="@xml/device_filter" />
+53-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:51:9-46
+54
+55            <!-- org.firstinspires.main.entry indicates that this app is compatible with the Dragonboard Control Hub -->
+56            <meta-data
+56-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:54:7-56:34
+57                android:name="org.firstinspires.main.entry"
+57-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:55:11-54
+58                android:value="true" />
+58-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:56:11-31
+59        </activity>
+60
+61        <!-- The robot controller service in which most of the robot functionality is managed -->
+62        <service
+62-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:60:5-62:32
+63            android:name="com.qualcomm.ftccommon.FtcRobotControllerService"
+63-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:61:7-70
+64            android:enabled="true" />
+64-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:62:7-29
+65
+66        <!-- Assistant that autostarts the robot controller on android boot (if it's supposed to) -->
+67        <receiver
+67-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:66:5-77:16
+68            android:name="org.firstinspires.ftc.ftccommon.internal.RunOnBoot"
+68-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:69:7-72
+69            android:enabled="true"
+69-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:67:7-29
+70            android:exported="true"
+70-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:68:7-30
+71            android:permission="android.permission.RECEIVE_BOOT_COMPLETED" >
+71-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:70:7-69
+72            <intent-filter>
+72-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:72:7-76:23
+73                <category android:name="android.intent.category.DEFAULT" />
+73-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:73:9-68
+73-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:73:19-65
+74
+75                <action android:name="android.intent.action.BOOT_COMPLETED" />
+75-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:74:9-71
+75-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:74:17-68
+76                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+76-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:75:9-74
+76-->C:\FTCCode\FTCTestBench2025\FtcRobotController\src\main\AndroidManifest.xml:75:17-71
+77            </intent-filter>
+78        </receiver>
+79    </application>
+80
+81</manifest>
