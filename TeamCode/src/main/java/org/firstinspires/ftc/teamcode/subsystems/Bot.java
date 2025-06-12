@@ -20,7 +20,7 @@ import org.firstinspires.ftc.teamcode.utilities.constants.GlobalConstants;
 
 public class Bot extends Robot
 {
-    OpenCVVision camera;
+    //OpenCVVision camera;
     private Drivetrain drivetrain;
     private Elevator lift;
     private LEDs headLights;
@@ -40,7 +40,7 @@ public class Bot extends Robot
         headLights= new LEDs(aHardwaremap,telemetry);
         claw= new Claw(aHardwaremap,telemetry);
         //camera= new Vision(aHardwaremap,drivetrain,claw,telemetry);
-        camera= new OpenCVVision(aHardwaremap,telemetry);
+        //camera= new OpenCVVision(aHardwaremap,telemetry);
         arm= new Arm(aHardwaremap,telemetry);
         driver1= new GamepadEx(d1);
         driver2= new GamepadEx(d2);
@@ -71,7 +71,7 @@ public class Bot extends Robot
     public void initTeleop(GlobalConstants.OpModeType opModeType)
     {
         if (opModeType == GlobalConstants.OpModeType.TELEOP) {
-            camera.streamToHub();
+            //camera.streamToHub();
         }
 
         dualDrive();

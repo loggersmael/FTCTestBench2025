@@ -1,0 +1,4 @@
+#Thu Jun 12 09:39:57 EDT 2025
+base.0=C\:\\FTCCode\\FTCTestBench2025\\TeamCode\\build\\intermediates\\dex\\debugAndroidTest\\mergeProjectDexDebugAndroidTest\\0\\classes.dex
+path.0=0/classes.dex
+renamed.0=classes.dex
